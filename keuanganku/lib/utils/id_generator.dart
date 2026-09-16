@@ -1,0 +1,1 @@
+String buatId() => DateTime.now().microsecondsSinceEpoch.toString();
