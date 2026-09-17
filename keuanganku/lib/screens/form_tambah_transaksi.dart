@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/kategori.dart';
 import '../models/transaksi.dart';
 import '../utils/id_generator.dart';
+import '../utils/format_rupiah.dart';
 
 /// Bottom sheet buat nambah satu transaksi baru.
 /// Kalau disimpan, widget ini "mengembalikan" objek Transaksi
@@ -34,7 +35,8 @@ class _FormTambahTransaksiState extends State<FormTambahTransaksi> {
   }
 
   void _simpan() {
-    final jumlah = double.tryParse(_jumlahController.text);
+    final teksAngka = _jumlahController.text.replaceAll('.', '');
+    final jumlah = double.tryParse(teksAngka);
 
     if (_kategoriTerpilih == null || jumlah == null || jumlah <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -82,7 +84,11 @@ class _FormTambahTransaksiState extends State<FormTambahTransaksi> {
           TextField(
             controller: _jumlahController,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Jumlah'),
+            inputFormatters: [RupiahInputFormatter()],
+            decoration: const InputDecoration(
+              labelText: 'Jumlah',
+              prefixText: 'Rp',
+            ),
           ),
           const SizedBox(height: 12),
           TextField(

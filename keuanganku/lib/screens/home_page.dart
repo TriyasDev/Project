@@ -7,6 +7,7 @@ import '../data/kategori_default.dart';
 import '../data/dompet_default.dart';
 import '../logic/saldo.dart';
 import 'form_tambah_transaksi.dart';
+import '../utils/format_rupiah.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 Text(_dompet.nama, style: const TextStyle(fontSize: 16)),
                 const SizedBox(height: 4),
                 Text(
-                  'Rp ${saldo.toStringAsFixed(0)}',
+                  formatRupiah(saldo),
                   style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -78,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                         title: Text(kategori.nama),
                         subtitle: t.catatan != null ? Text(t.catatan!) : null,
                         trailing: Text(
-                          '${isPemasukan ? '+' : '-'} Rp ${t.jumlah.toStringAsFixed(0)}',
+                          '${isPemasukan ? '+' : '-'} Rp ${formatRupiah(t.jumlah)}',
                         ),
                       );
                     },
